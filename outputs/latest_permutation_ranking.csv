@@ -1,0 +1,13 @@
+strategy_id,param_lookback,param_stop_atr,param_mode,score
+lookback=12|stop_atr=2.0|mode=meanrev,12,2.0,meanrev,-3.8380781209713746
+lookback=24|stop_atr=2.0|mode=meanrev,24,2.0,meanrev,-4.188137027959078
+lookback=6|stop_atr=2.0|mode=meanrev,6,2.0,meanrev,-4.468919273611578
+lookback=12|stop_atr=1.0|mode=meanrev,12,1.0,meanrev,-5.127216083793745
+lookback=24|stop_atr=1.0|mode=meanrev,24,1.0,meanrev,-5.3182876857999455
+lookback=6|stop_atr=1.0|mode=meanrev,6,1.0,meanrev,-5.660747082430691
+lookback=12|stop_atr=2.0|mode=momentum,12,2.0,momentum,-6.783052056502316
+lookback=24|stop_atr=2.0|mode=momentum,24,2.0,momentum,-6.9299673417675125
+lookback=12|stop_atr=1.0|mode=momentum,12,1.0,momentum,-7.286515568404524
+lookback=6|stop_atr=2.0|mode=momentum,6,2.0,momentum,-7.397688176221507
+lookback=24|stop_atr=1.0|mode=momentum,24,1.0,momentum,-7.703373037624924
+lookback=6|stop_atr=1.0|mode=momentum,6,1.0,momentum,-8.218884731264854

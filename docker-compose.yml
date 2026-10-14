@@ -1,0 +1,14 @@
+# Local Postgres (free). Matches DATABASE_URL in .env.example
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: cwt
+      POSTGRES_PASSWORD: cwt
+      POSTGRES_DB: cwt
+    ports:
+      - "5432:5432"
+    volumes:
+      - cwt_pgdata:/var/lib/postgresql/data
+volumes:
+  cwt_pgdata:

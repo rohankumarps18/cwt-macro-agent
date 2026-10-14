@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cwt-macro-agent"
+version = "0.1.0"
+description = "Macro-aware strategy permutation model with walk-forward validation"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas>=2.2", "numpy>=1.26", "scipy>=1.11", "scikit-learn>=1.4", "lightgbm>=4.3",
+  "matplotlib>=3.8", "sqlalchemy>=2.0", "psycopg2-binary>=2.9", "apify-client>=1.7",
+  "tavily-python>=0.5", "vaderSentiment>=3.3", "yfinance>=0.2", "python-dotenv>=1.0", "tzdata",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
