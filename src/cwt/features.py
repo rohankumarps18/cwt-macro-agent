@@ -110,7 +110,9 @@ def build_feature_frame(engine: Engine, settings: Settings) -> tuple[pd.DataFram
               "is_cash_session", "minutes_into_session"]
     event_f = ["minutes_since_event", "minutes_to_event", "pre_event_60m", "post_event_30m",
                "next_impact_ord", "prev_event_type", "next_event_type", "prev_signed_z"]
-    type_f = [c for t in EVENT_TYPES for c in (f"last_{t.lower()}_z", f"days_since_{t.lower()}")]
+    # FOMC surprises are always 0 (all decisions matched consensus), so last_fomc_z carries no information
+    type_f = [c for t in EVENT_TYPES for c in (f"last_{t.lower()}_z", f"days_since_{t.lower()}")
+              if c != "last_fomc_z"]
     sent_f = ["macro_index", "news_sent_3d", "news_sent_7d", "news_n_7d"]
     feats = time_f + event_f + type_f + sent_f + param_names
     # drop all-NaN columns (e.g. no news loaded) so they cannot silently pass as signal

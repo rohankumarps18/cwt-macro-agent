@@ -16,8 +16,8 @@
 
 ## Sentiment regime
 - Macro surprise index: **-0.45** (softer than forecast); 30-day change -0.55 (falling).
-- News sentiment (7d VADER): **0.32** vs 30 days ago 0.44.
-- Composite z-score: -0.35.
+- News sentiment (7d VADER): **0.31** vs 30 days ago 0.45.
+- Composite z-score: -0.40.
 
 ## Upcoming events in the data
 - 2026-10-14 12:30 UTC: Core CPI y/y (forecast 2.50)

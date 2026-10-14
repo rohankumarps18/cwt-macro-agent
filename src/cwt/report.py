@@ -70,7 +70,20 @@ def build_report(metrics: pd.DataFrame, folds: pd.DataFrame, gain: pd.Series, cf
           "uses features of trades later in that window (event *schedule* and as-of-trade-time data only, never "
           "future outcomes), but a live system would have to decide ex ante. Treat it as optimistic relative to "
           "`model_trade_filter`, which is fully causal per trade.",
-          "- No transaction costs or slippage beyond what is already in the logged P&L.",
+          "- Trades are SIMULATED on public SPY 1h bars (decision at bar close, fill at next-bar open), not live executions. "
+          "P&L is net of the `build-trade-log` defaults: 1 bp commission + 1 bp slippage per side (about 4 bps, roughly "
+          "$4, round trip on a $10,000 notional). Costs are already inside every P&L figure above; they are not missing.",
+          "- Gross of costs the strategies show no demonstrable edge (mean about -$0.38 per trade; momentum +$20.65/day, "
+          "t = 0.97; mean-reversion -$31.36/day, t = -1.61, over 124 days). The net losses are mostly cost drag. "
+          "`all_trades` holds near-mirror-image momentum and mean-reversion books, so its very negative Sharpe reflects "
+          "steady small losses with little variance, not a calculation error (P&L recomputed from prices to 1e-14).",
+          "- Results use one fixed seed (42). Across seeds 0-4 the filter's mean P&L per taken trade ranged from about "
+          "-5.8 to -3.2, so a gap of about $1 per trade between policies is within noise. About 82 out-of-sample days "
+          "and roughly 340 distinct entry times are too few to detect a modest effect.",
+          "- All 12 FOMC decisions in the data matched the consensus forecast, so FOMC surprise z-scores are undefined "
+          "(filled with 0) and carry no information.",
+          "- About 22% of news articles carry date-only (midnight UTC) timestamps; these are shifted to 23:59:59 UTC of "
+          "the same day so they are never visible before publication.",
           "- Event surprise z-scores need 3 prior prints, so the first prints of each event carry no signal.",
           "- Hyper-parameters were not tuned; fixed defaults avoid selecting them on the test folds.", ""]
     return "\n".join(L)

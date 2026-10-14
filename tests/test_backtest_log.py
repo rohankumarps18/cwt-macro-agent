@@ -60,3 +60,19 @@ def test_build_trade_log_schema_matches_loader():
     log = build_trade_log(_bars(), grid={"lookback": [2], "stop_atr": [1.0], "mode": ["momentum", "meanrev"]},
                           symbol="TEST", hold_bars=100, atr_n=2)
     assert {"timestamp", "pnl", "lookback", "stop_atr", "mode", "exit_timestamp"} <= set(log.columns)
+
+
+def test_stop_hit_on_entry_bar_has_consistent_timestamp_and_fill():
+    b = _bars()
+
+    # First trade enters at bar 3's open (103).
+    # Force the entry bar's low through the long stop.
+    b.loc[3, "low"] = 100.0
+
+    trades = backtest_permutation(b, **KW)
+
+    assert trades
+    first = trades[0]
+    assert first["entry_price"] == pytest.approx(103.0)
+    assert first["exit_price"] < first["entry_price"]
+    assert first["exit_timestamp"] >= first["timestamp"]

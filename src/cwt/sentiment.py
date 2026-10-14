@@ -28,9 +28,12 @@ def news_rolling(news: pd.DataFrame) -> pd.DataFrame:
     """Rolling means evaluated at each article's own timestamp (uses only articles up to then)."""
     if news.empty:
         return pd.DataFrame(columns=["ts_utc", "news_sent_3d", "news_sent_7d", "news_n_7d"])
-    n = news.dropna(subset=["published_at"]).sort_values("published_at").copy()
-    n["published_at"] = to_utc_ns(n["published_at"])
-    n = n.set_index("published_at")
+    n = news.dropna(subset=["published_at"]).copy()
+    ts = pd.to_datetime(to_utc_ns(n["published_at"]), utc=True)
+    # date-only stamps (exactly 00:00:00 UTC) could be seen up to a day early: move them to end of that day
+    ts = ts.where(ts != ts.dt.normalize(), ts + pd.Timedelta(hours=23, minutes=59, seconds=59))
+    n["published_at"] = ts
+    n = n.sort_values("published_at").set_index("published_at")
     out = pd.DataFrame({
         "news_sent_3d": n["sentiment"].rolling("3D").mean(),
         "news_sent_7d": n["sentiment"].rolling("7D").mean(),
